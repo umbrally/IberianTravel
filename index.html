@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伊比利半島深度文化美食之旅</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 自定義字體，如果 'Inter' 不可用，則使用通用無襯線字體 */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Prose 樣式調整，以確保內聯 HTML 渲染良好 */
+        .prose ul li {
+            margin-bottom: 0.5rem;
+        }
+        .prose h2, .prose h3, .prose h4 {
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose strong {
+            font-weight: 600;
+            color: #166534; /* emerald-800 */
+        }
+        /* 針對 iframe 圖片載入失敗的預設樣式 */
+        iframe {
+            background-color: #f0f0f0; /* 淺灰色背景 */
+            border: 1px dashed #ccc; /* 虛線邊框 */
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-emerald-50 to-cyan-100 text-gray-800 p-4 sm:p-6 md:p-8">
+
+    <div id="app-root" class="max-w-4xl mx-auto">
+        <!-- 頁面標題 -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-cyan-900 leading-tight">
+                伊比利半島20天深度文化美食之旅：西班牙與葡萄牙精華探索
+            </h1>
+            <p class="text-xl sm:text-2xl mt-2 text-emerald-700">
+                您的專屬伊比利半島深度之旅
+            </p>
+        </header>
+
+        <!-- 導航標籤 -->
+        <nav class="mb-8 flex flex-wrap justify-center gap-2 sm:gap-4" id="nav-tabs">
+            <button id="tab-overview" class="tab-button px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-medium transition duration-300 ease-in-out shadow-md">
+                旅程概述
+            </button>
+            <button id="tab-spain" class="tab-button px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-medium transition duration-300 ease-in-out shadow-md">
+                西班牙城市
+            </button>
+            <button id="tab-portugal" class="tab-button px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-medium transition duration-300 ease-in-out shadow-md">
+                葡萄牙城市
+            </button>
+            <button id="tab-daily" class="tab-button px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-medium transition duration-300 ease-in-out shadow-md">
+                每日行程
+            </button>
+            <button id="tab-tips" class="tab-button px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-medium transition duration-300 ease-in-out shadow-md">
+                交通與小貼士
+            </button>
+        </nav>
+
+        <!-- 主要內容區域 -->
+        <div id="main-content">
+            <!-- 內容將由 JavaScript 動態載入 -->
+        </div>
+    </div>
+
+    <script>
+        // 旅行計畫數據
+        const appData = {
+            overview: {
+                title: "伊比利半島20天深度文化美食之旅：西班牙與葡萄牙精華探索",
+                highlights: [
+                    "從巴塞隆納高第的奇幻建築，到托雷多三教文化的歷史交融，再到格拉納達摩爾遺產的神秘魅力，旅程將親歷西班牙皇室的氣派與安達盧西亞的熱情。",
+                    "隨後，在葡萄牙感受大航海時代的輝煌與獨特的學術氛圍，這一切都將為探索者帶來強烈的視覺與感官衝擊，確保旅程充滿新奇與探索。",
+                    "味蕾的盛宴是此行的另一大亮點。行程中融入豐富的在地美食探索，從加泰隆尼亞的海鮮燉飯、安達盧西亞的塔帕斯與燉牛尾，到葡萄牙的香醇波特酒與經典葡式蛋撻，每一餐都將是異國風情的味蕾體驗。",
+                    "相較於東亞文化，西班牙與葡萄牙獨特的拉丁文化、熱情的弗拉明戈、古老的法朵音樂、以及風格迥異的建築藝術，將為旅行者帶來前所未有的沉浸式感受。",
+                    "此行涵蓋了所有指定必訪城市，包括西班牙的巴塞隆納、托雷多、馬德里、塞哥維亞、格拉納達、隆達、塞維亞、哥多華；以及葡萄牙的波多、孔布拉、里斯本。"
+                ]
+            },
+            spainCities: [
+                {
+                    name: "巴塞隆納",
+                    country: "西班牙",
+                    description: "巴塞隆納是加泰隆尼亞自治區的首府，一座將羅馬、哥德、現代主義元素完美融合的藝術之都，以安東尼·高第的建築奇蹟聞名於世。這座城市不僅擁有豐富的歷史沉澱，更散發著獨特的加泰隆尼亞文化魅力，與西班牙其他地區形成鮮明對比，為旅行者帶來異國情調的體驗。",
+                    reasons: [
+                        "高第的建築群是巴塞隆納的靈魂，聖家堂、奎爾公園、巴特略之家等作品，以其獨特的造型和色彩，展現了超凡的想像力與自然元素的融合，是建築史上的瑰寶。",
+                        "巴塞隆納的美食文化同樣令人驚艷，從經典的海鮮燉飯到各式塔帕斯，再到甜點吉拿棒和巴斯克乳酪蛋糕，每一道菜都融合了傳統西班牙風味與加泰隆尼亞特色，為味蕾帶來豐富體驗。"
+                    ],
+                    attractions: [
+                        {
+                            name: "聖家堂 (Sagrada Família)",
+                            description: "高第的未完之作，建築界的奇蹟。",
+                            history: "聖家堂自1882年開始建造，至今仍未完工，是高第畢生心血的結晶。他將大自然和宗教象徵融入建築中，使其充滿生命力。設計融合了哥德式和新藝術運動風格，有「誕生立面」、「受難立面」和「榮耀立面」，每個立面都訴說著聖經故事。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sagrada_Familia_from_the_air%2C_October_2023.jpg/1280px-Sagrada_Familia_from_the_air%2C_October_2023.jpg"
+                        },
+                        {
+                            name: "奎爾公園 (Park Güell)",
+                            description: "充滿奇幻色彩的高第公園。",
+                            history: "奎爾公園最初是高第為歐塞比·奎爾伯爵設計的住宅區，但最終僅完成了公共區域。公園內充滿了高第標誌性的馬賽克拼貼、曲線造型和自然元素，如蜥蜴噴泉、薑餅屋般的守衛室和如波浪般起伏的長椅。這裡不僅是公園，更是高第將藝術融入生活的實驗場。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Park_G%C3%BCell_-_Barcelona%2C_Spain_-_Diliff.jpg/1280px-Park_G%C3%BCell_-_Barcelona%2C_Spain_-_Diliff.jpg"
+                        },
+                        {
+                            name: "巴特略之家 (Casa Batlló)",
+                            description: "高第的另一代表作，海洋主題建築。",
+                            history: "巴特略之家原是一棟普通建築，經高第改造後變得充滿想像力。其外觀設計靈感來自海洋和龍，外牆的馬賽克隨著光線變化而閃爍，陽台像是骨骼，屋頂則模仿龍的脊背。內部空間幾乎沒有直線，處處是曲線和自然光影的運用，令人彷彿置身於海底世界。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Casa_Batllo%2C_Barcelona.jpg/1280px-Casa_Batllo%2C_Barcelona.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "西班牙海鮮燉飯 (Paella)",
+                            description: "以藏紅花米飯和豐富海鮮聞名。",
+                            history: "海鮮燉飯（Paella）起源於西班牙東海岸的瓦倫西亞地區，最初是農民在田間用手邊食材製作的米飯料理。傳統的瓦倫西亞海鮮燉飯通常使用兔肉、雞肉和豆類，而廣為人知的海鮮燉飯則是在沿海地區發展起來的變體。其特色是使用淺口平底鍋烹製，米飯吸滿了高湯的鮮味，底部會形成一層焦香的鍋巴（socarrat），被視為美味的精華。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Paella_de_marisco.jpg/1280px-Paella_de_marisco.jpg"
+                        },
+                        {
+                            name: "塔帕斯 (Tapas)",
+                            description: "多樣化的小吃，適合分享。",
+                            history: "塔帕斯（Tapas）是西班牙飲食文化的重要組成部分，指各種小份量的開胃菜或小吃。關於其起源有多種說法，其中一種認為在過去，人們會用一片麵包或火腿覆蓋（tapar）在酒杯上，以防止蒼蠅落入，逐漸演變為搭配飲酒的小食。塔帕斯文化強調分享和社交，讓用餐變得輕鬆有趣。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Tapas_in_Madrid.jpg/1280px-Tapas_in_Madrid.jpg"
+                        },
+                        {
+                            name: "巴斯克乳酪蛋糕 (Basque Cheesecake)",
+                            description: "焦香外皮與柔滑內餡的甜點。",
+                            history: "巴斯克乳酪蛋糕（Basque Cheesecake）起源於西班牙巴斯克地區的聖塞巴斯蒂安一家名為La Viña的餐廳。它顛覆了傳統乳酪蛋糕的製作方式，追求表面焦黑、內部卻流心般的柔滑口感。這種獨特的烘焙方式賦予蛋糕焦糖化的風味和粗獷的外表，卻有著令人驚豔的細膩內餡，迅速風靡全球。",
+                            imageUrl: "https://images.unsplash.com/photo-1627917711463-54c30c33d7d7?w=1280&h=853&auto=format&fit=crop&q=80"
+                        }
+                    ]
+                },
+                {
+                    name: "托雷多",
+                    country: "西班牙",
+                    description: "托雷多位於塔霍河畔，曾是西班牙的首都，以其「三教之城」（基督教、猶太教、伊斯蘭教）的獨特歷史聞名。這座被聯合國教科文組織列為世界遺產的古城，完整保留了中世紀的城市風貌，漫步其中，彷彿穿越時空。",
+                    reasons: [
+                        "托雷多是歷史愛好者的天堂。其獨特的地理位置和歷史背景，使其成為多種文化和宗教和平共存的典範。",
+                        "托雷多大教堂是西班牙最重要的哥德式建築之一，內部收藏著格列柯、戈雅等大師的藝術珍品。"
+                    ],
+                    attractions: [
+                        {
+                            name: "托雷多大教堂 (Toledo Cathedral)",
+                            description: "西班牙最重要的哥德式建築之一。",
+                            history: "托雷多大教堂建於13世紀，歷經數百年才完工，是西班牙天主教會的中心。它建立在過去的清真寺基礎上，融合了哥德式、文藝復興和巴洛克等多種建築風格。教堂內部金碧輝煌，尤其是主祭壇、聖器室和唱詩班席位，收藏了格列柯等大師的畫作，被譽為西班牙藝術寶庫。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Catedral_de_Toledo_02.jpg/1280px-Catedral_de_Toledo_02.jpg"
+                        },
+                        {
+                            name: "聖瑪麗亞布蘭卡猶太教堂 (Synagogue of Santa María la Blanca)",
+                            description: "見證猶太教在托雷多的輝煌歲月。",
+                            history: "這座猶太教堂建於12世紀，是托雷多現存最古老的猶太教堂之一。其建築風格獨特，融合了摩爾式（穆德哈爾風格）和猶太建築的元素，如馬蹄拱門和幾何圖案裝飾。在基督教征服托雷多後，它被改建成教堂，見證了托雷多歷史上猶太、基督教和伊斯蘭文化交融共存的特殊時期。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sinagoga_Santa_Mar%C3%ADa_la_Blanca_Toledo_02.jpg/1280px-Sinagoga_Santa_Mar%C3%ADa_la_Blanca_Toledo_02.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "馬薩潘 (Mazapan)",
+                            description: "傳統杏仁膏甜點，由修道院製作。",
+                            history: "馬薩潘（Mazapan）是一種以杏仁和糖為主要原料製成的傳統甜點，尤其在托雷多非常有名。據說，其起源可以追溯到摩爾人統治時期，並由修道院的修女們將其製作工藝傳承至今。托雷多的馬薩潘以其細膩的質地和多變的造型而聞名，是聖誕節期間常見的節慶食品。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Marzipan_from_Toledo.jpg/1280px-Marzipan_from_Toledo.jpg"
+                        },
+                        {
+                            name: "炸丸子 (Croquetas)",
+                            description: "酥脆外皮包裹濃郁內餡。",
+                            history: "炸丸子（Croquetas）是西班牙和葡萄牙常見的國民小吃。它源自法國的「法式白醬可樂餅」，在西班牙被發揚光大。通常由濃郁的白醬（Béchamel sauce）與火腿、雞肉、鱈魚或蘑菇等內餡混合，裹上麵包屑後油炸而成。外皮金黃酥脆，內餡香滑濃郁，是當地酒吧和餐廳的必備小吃。",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Croquetas.JPG/1280px-Croquetas.JPG"
+                    }
+                    ]
+                },
+                {
+                    name: "馬德里",
+                    country: "西班牙",
+                    description: "馬德里作為西班牙的首都，是一座充滿活力的現代都市，同時也保留著濃厚的皇室氣派與深厚的藝術底蘊。這座城市是西班牙政治、經濟、文化的中心，擁有眾多世界級博物館、宏偉的皇宮和熱鬧的廣場。",
+                    reasons: [
+                        "馬德里是藝術愛好者的朝聖地，普拉多美術館、索菲亞王后藝術中心等博物館收藏了西班牙乃至歐洲的藝術瑰寶，如戈雅、委拉斯凱茲、畢卡索等大師的作品。",
+                        "馬德里皇宮是歐洲最大的皇宮之一，其奢華的裝飾和豐富的歷史，展現了西班牙皇室的輝煌與權力。"
+                    ],
+                    attractions: [
+                        {
+                            name: "普拉多美術館 (Prado Museum)",
+                            description: "收藏西班牙乃至歐洲的藝術瑰寶。",
+                            history: "普拉多美術館於1819年開放，是世界上最重要的美術館之一，也是西班牙國立美術館的驕傲。它收藏了從12世紀到19世紀的歐洲藝術品，尤以西班牙藝術家的作品為精華，包括戈雅、委拉斯開茲和埃爾·格列柯的傑作。美術館本身也是一座新古典主義建築的典範。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Museo_del_Prado_%28Madrid%29_02.jpg/1280px-Museo_del_Prado_%28Madrid%29_02.jpg"
+                        },
+                        {
+                            name: "馬德里皇宮 (Royal Palace)",
+                            description: "歐洲最大的皇宮之一。",
+                            history: "馬德里皇宮是西班牙皇室的官方法定居所，儘管現在主要用於國事活動和儀式。它建於18世紀，是歐洲規模最大的皇宮之一，擁有超過3000個房間。皇宮內部裝潢極盡奢華，收藏了無數藝術品、掛毯和家具，見證了西班牙波旁王朝的輝煌歷史。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Palacio_Real_de_Madrid_noche.jpg/1280px-Palacio_Real_de_Madrid_noche.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "西班牙烘蛋 (Tortilla Española)",
+                            description: "簡單經典的馬鈴薯雞蛋料理。",
+                            history: "西班牙烘蛋（Tortilla Española）是西班牙最經典的家常菜之一，以馬鈴薯、雞蛋和洋蔥（可選）為主要原料。這道菜的起源有爭議，但普遍認為它在18世紀末至19世紀初的西班牙內戰期間因食材匱乏而流行起來，成為一道經濟實惠且營養豐富的主食。每個家庭都有自己的烹調秘訣，口感可從半熟流心到紮實厚重不等。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Tortilla_de_patatas_con_cebolla.jpg/1280px-Tortilla_de_patatas_con_cebolla.jpg"
+                        },
+                        {
+                            name: "桑格利亞酒 (Sangria)",
+                            description: "以紅酒、水果、糖和氣泡水混合的飲品。",
+                            history: "桑格利亞酒（Sangria）是西班牙的國民飲品，名稱源自西班牙語的'sangre'（血），因其深紅色澤而得名。雖然確切起源不明，但早在19世紀，西班牙和葡萄牙的農民就開始將葡萄酒與水果、香料混合飲用。桑格利亞酒通常由紅酒、切片水果（如柑橘類、蘋果）、甜味劑和少許白蘭地或橙酒混合而成，冰鎮後飲用，是夏季消暑的理想選擇。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Sangria_01.jpg/1280px-Sangria_01.jpg"
+                        }
+                    ]
+                },
+                {
+                    name: "塞哥維亞",
+                    country: "西班牙",
+                    description: "塞哥維亞是位於馬德里西北部的一座歷史名城，以其保存完好的羅馬水道橋和童話般的阿爾卡薩城堡而聞名。這座城市規模不大，但其歷史遺跡的宏偉與獨特，使其成為西班牙中部不可錯過的亮點。",
+                    reasons: [
+                        "塞哥維亞的羅馬水道橋是古羅馬工程的奇蹟，屹立千年而不倒，其壯觀的景象令人嘆為觀止。",
+                        "阿爾卡薩城堡（Alcázar of Segovia）則被譽為迪士尼城堡的原型，其尖塔和護城河營造出濃厚的童話氛圍，內部裝飾精美，是西班牙歷史上重要的皇室居所。"
+                    ],
+                    attractions: [
+                        {
+                            name: "羅馬水道橋 (Roman Aqueduct)",
+                            description: "古羅馬工程的奇蹟，屹立千年。",
+                            history: "塞哥維亞的羅馬水道橋建於公元1世紀，是古羅馬帝國在西班牙最宏偉且保存最完好的工程之一。它完全由巨大的花崗岩石塊無砂漿堆疊而成，歷經兩千年風雨依然屹立不倒，至今仍是塞哥維亞的供水系統的一部分。其建築的精準與宏偉，令人讚嘆古羅馬人的工程智慧。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Acueducto_de_Segovia_%281%29.jpg/1280px-Acueducto_de_Segovia_%281%29.jpg"
+                        },
+                        {
+                            name: "塞哥維亞城堡 (Alcázar of Segovia)",
+                            description: "童話般的城堡，迪士尼城堡原型。",
+                            history: "塞哥維亞城堡最初是羅馬人的要塞，後來成為摩爾人、卡斯提爾國王和西班牙皇室的居所，並在歷史上多次重建和擴建。它獨特的船頭造型和尖塔，據說啟發了迪士尼動畫《白雪公主》中的城堡。城堡內部裝潢華麗，每個房間都訴說著不同的歷史故事，從國王的寶座廳到騎士的兵器庫，都充滿了中世紀的浪漫與傳奇。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Alc%C3%A1zar_de_Segovia_%28Castilla_y_Le%C3%B3n%2C_Espa%C3%B1a%29.jpg/1280px-Alc%C3%A1zar_de_Segovia_%28Castilla_y_Le%C3%B3n%2C_Espa%C3%B1a%29.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "烤乳豬 (Cochinillo Asado)",
+                            description: "外皮酥脆，肉質鮮嫩。",
+                            history: "烤乳豬（Cochinillo Asado）是塞哥維亞的招牌菜，享譽西班牙。這道菜選用2-3週大的乳豬，經過長時間低溫烘烤，直到外皮金黃酥脆，肉質卻極度鮮嫩多汁，用盤子即可切開是其標誌性特點。許多餐廳會現場表演用盤子切乳豬的儀式，以證明其肉質的軟嫩，然後將盤子摔碎，寓意好運。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Cochinillo_asado.JPG/1280px-Cochinillo_asado.JPG"
+                        }
+                    ]
+                },
+                {
+                    name: "格拉納達",
+                    country: "西班牙",
+                    description: "格拉納達是安達盧西亞地區的瑰寶，曾是摩爾人在西班牙的最後一個據點，因此保留了濃厚的伊斯蘭文化印記。這座城市以其世界遺產阿爾罕布拉宮（Alhambra）而聞名，是西班牙最具異國情調的城市之一。",
+                    reasons: [
+                        "阿爾罕布拉宮是伊斯蘭藝術和建築的巔峰之作，包括納斯里德宮殿、赫內拉利費花園和阿爾卡薩瓦等部分，其精緻的雕刻、水景和園林設計令人讚嘆。",
+                        "阿爾拜辛區（Albaicín）是格拉納達最古老的摩爾人居住區，其狹窄的巷弄、白色房屋和隱藏的庭院，充滿了迷人的異國風情。"
+                    ],
+                    attractions: [
+                        {
+                            name: "阿爾罕布拉宮 (Alhambra)",
+                            description: "伊斯蘭藝術和建築的巔峰之作。",
+                            history: "阿爾罕布拉宮是西班牙最著名的摩爾式建築群，也是伊斯蘭藝術的巔峰代表。它最初是9世紀的堡壘，後在13-14世紀成為納斯里德王朝的皇宮和夏宮。宮殿內部精緻的雕刻、彩繪瓷磚、幾何圖案以及精巧的水系設計，都體現了摩爾人在建築和園林藝術上的高度成就。特別是獅子庭院和桃金孃中庭，是其最具代表性的景點。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Alhambra_de_Granada_%28Espa%C3%B1a%29%2C_desde_el_Aire.jpg/1280px-Alhambra_de_Granada_%28Espa%C3%B1a%29%2C_desde_el_Aire.jpg"
+                        },
+                        {
+                            name: "阿爾拜辛區 (Albaicín)",
+                            description: "格拉納達最古老的摩爾人居住區。",
+                            history: "阿爾拜辛區是格拉納達最古老的區域，保留了摩爾人統治時期的城市格局。這裡的街道狹窄蜿蜒，白色房屋錯落有致，許多庭院隱藏在牆後。漫步其中，可以感受到濃郁的阿拉伯風情，並在聖尼古拉斯瞭望台（Mirador de San Nicolás）欣賞到阿爾罕布拉宮的壯麗全景，尤其是在日落時分。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Granada%2C_Albaic%C3%ADn_03.jpg/1280px-Granada%2C_Albaic%C3%ADn_03.jpg"
+                        },
+                        {
+                            name: "薩克羅蒙特區 (Sacromonte)",
+                            description: "吉普賽洞穴屋區，體驗獨特文化。",
+                            history: "薩克羅蒙特區位於阿爾拜辛區對面的山坡上，以其獨特的洞穴屋聞名，這些洞穴是數百年前吉普賽人在此定居並開鑿而成的。這裡也是弗拉明戈的發源地之一，許多洞穴至今仍保留著弗拉明戈表演的場所。參觀薩克羅蒙特，可以深入了解吉普賽文化，並欣賞到格拉納達另一種獨特的風情。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Sacromonte_Cave_Museum%2C_Granada.jpg/1280px-Sacromonte_Cave_Museum%2C_Granada.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "隨酒贈送塔帕斯 (Tapas)",
+                            description: "格拉納達特色，點酒送小吃。",
+                            history: "格拉納達是西班牙少數仍保留「隨酒贈送塔帕斯」傳統的城市之一。這項傳統源於餐館為客人提供小份免費食物，以搭配點的飲料，從而吸引顧客並鼓勵消費。在格拉納達，您只需點一杯酒水，店家就會附贈一份塔帕斯，每次續杯都可能是不同的小吃，讓您在享受飲品的同時，也能品嚐到多樣化的當地美食。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Tapas_in_Madrid.jpg/1280px-Tapas_in_Madrid.jpg"
+                        }, // Reusing general Tapas image
+                        {
+                            name: "豆類火腿雜燴 (Habas con jamón)",
+                            description: "帶有阿拉伯風味的家常菜。",
+                            history: "豆類火腿雜燴（Habas con jamón）是安達盧西亞地區，尤其是格拉納達的傳統家常菜。這道菜充分利用了當地盛產的蠶豆（fava beans）和西班牙火腿（jamón serrano或jamón ibérico），並加入洋蔥、大蒜和薄荷等香料燉煮，帶有淡淡的阿拉伯風味。它簡單卻美味，是當地人喜愛的comfort food。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Habas_con_jam%C3%B3n_fresco_%28Spanish_Dish%29.jpg/1280px-Habas_con_jam%C3%B3n_fresco_%28Spanish_Dish%29.jpg"
+                        },
+                        {
+                            name: "安達盧西亞冷湯 (Gazpacho/Salmorejo)",
+                            description: "夏日消暑首選。",
+                            history: "安達盧西亞冷湯（Gazpacho）起源於西班牙南部，是一種以生蔬菜為基礎的冷湯，尤其在炎熱的夏季非常受歡迎。其歷史可追溯到古羅馬時期，當時的農民會將麵包、大蒜、橄欖油和醋混合食用。現代的Gazpacho主要由番茄、黃瓜、甜椒、洋蔥、大蒜、橄欖油和醋攪打而成。Salmorejo則是哥多華的變體，比Gazpacho更濃稠，通常會搭配西班牙火腿丁和煮蛋丁。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Gazpacho_andaluz.JPG/1280px-Gazpacho_andaluz.JPG"
+                        }
+                    ]
+                },
+                {
+                    name: "隆達",
+                    country: "西班牙",
+                    description: "隆達是安達盧西亞地區一座獨特的懸崖小鎮，以其橫跨埃爾塔霍峽谷的新橋（Puente Nuevo）而聞名。這座小鎮不僅風景壯麗，更是西班牙鬥牛的發源地之一，充滿了浪漫與傳奇色彩。",
+                    reasons: [
+                        "隆達的地理位置使其成為一個視覺上的奇觀，新橋將新城與舊城連接起來，橋下是百米深的峽谷，景色令人震撼。",
+                        "隆達鬥牛場（Plaza de Toros de Ronda）是西班牙最古老的鬥牛場之一，見證了現代鬥牛的誕生。"
+                    ],
+                    attractions: [
+                        {
+                            name: "新橋 (Puente Nuevo)",
+                            description: "橫跨埃爾塔霍峽谷的宏偉橋樑。",
+                            history: "新橋是隆達最著名的地標，歷時42年於1793年建成，橫跨埃爾塔霍峽谷，將隆達的新城區和老城區連接起來。這座橋樑高達98公尺，橋下是深深的瓜達萊溫河，其壯麗的景色和險峻的構造令人嘆為觀止。新橋不僅是一項工程奇蹟，也成為隆達獨特風景的象徵。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Ronda_-_Puente_Nuevo_%28Spain%29.jpg/1280px-Ronda_-_Puente_Nuevo_%28Spain%29.jpg"
+                        },
+                        {
+                            name: "隆達鬥牛場 (Plaza de Toros de Ronda)",
+                            description: "西班牙最古老的鬥牛場之一。",
+                            history: "隆達鬥牛場建於1785年，是西班牙最古老、最著名的鬥牛場之一，被譽為現代鬥牛的發源地。其獨特的圓形設計和雙層石結構，使其成為鬥牛建築的典範。場內設有鬥牛博物館，展示了鬥牛的歷史、服飾和著名鬥牛士的事蹟，即使不觀看鬥牛，也能深入了解這項西班牙傳統的藝術和文化。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Plaza_de_Toros_de_Ronda_bullring.jpg/1280px-Plaza_de_Toros_de_Ronda_bullring.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "隆達當地美食",
+                            description: "感受小鎮的獨特風味。",
+                            history: "隆達的美食深受安達盧西亞傳統影響，以使用當地食材為特色。除了著名的烤乳豬外，您還可以品嚐到用當地農產品製作的特色燉菜、新鮮的河魚以及以伊比利亞豬肉為主的肉類料理。許多餐廳都提供傳統的安達盧西亞菜餚，讓遊客體驗地道的小鎮風味。其中，'Rabo de Toro' (燉牛尾) 和 'Migas' (一種以麵包碎為主的菜餚) 也很受歡迎。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Plato_de_pata_de_cerdo_asado_al_horno.jpg/1280px-Plato_de_pata_de_cerdo_asado_al_horno.jpg"
+                        } // Found a generic Spanish roasted pork dish
+                    ]
+                },
+                {
+                    name: "塞維亞",
+                    country: "西班牙",
+                    description: "塞維亞是安達盧西亞的首府，一座充滿陽光、熱情與弗拉明戈的城市。這座城市融合了羅馬、摩爾、基督教等多種文化元素，擁有宏偉的建築、迷人的花園和熱鬧的街頭生活。",
+                    reasons: [
+                        "塞維亞大教堂是世界第三大教堂，也是哥倫布的長眠之地，其吉拉達塔曾是清真寺的宣禮塔，登頂可俯瞰城市全景。",
+                        "塞維亞王宮（Real Alcázar）是歐洲仍在使用的最古老宮殿，其精美的摩爾式庭院和建築令人讚嘆，是摩爾與基督教藝術的完美結合。",
+                        "西班牙廣場（Plaza de España）則以其半圓形的宏偉建築和運河，成為塞維亞的標誌性地標。"
+                    ],
+                    attractions: [
+                        {
+                            name: "塞維亞大教堂 (Seville Cathedral) 及吉拉達塔 (Giralda)",
+                            description: "世界第三大教堂，可俯瞰城市。",
+                            history: "塞維亞大教堂建於15世紀，是世界第三大教堂和最大的哥德式建築，其所在地曾是摩爾人的大清真寺。教堂內部的核心是哥倫布的陵墓，其宏偉的規模和豐富的藝術品令人震撼。吉拉達塔（Giralda）原是清真寺的宣禮塔，後被改建成教堂的鐘樓，登頂可俯瞰塞維亞城市全景，是摩爾建築與文藝復興風格完美結合的典範。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Giralda_and_Seville_Cathedral.jpg/1280px-Giralda_and_Seville_Cathedral.jpg"
+                        },
+                        {
+                            name: "塞維亞王宮 (Real Alcázar)",
+                            description: "摩爾式建築精華，歐洲最古老宮殿。",
+                            history: "塞維亞王宮是歐洲仍在使用的最古老宮殿之一，最初由摩爾人於10世紀建造，後經基督教國王不斷擴建，形成了融合伊斯蘭、哥德和文藝復興風格的獨特建築群，尤以穆德哈爾（Mudéjar）風格最為突出。宮殿內的庭院、水池和精緻的幾何圖案裝飾令人驚嘆，特別是少女庭院（Patio de las Doncellas）和大使廳（Salón de Embajadores），被譽為西班牙最美的庭院之一。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Alcazar_de_Sevilla_2016-09-18.jpg/1280px-Alcazar_de_Sevilla_2016-09-18.jpg"
+                        },
+                        {
+                            name: "西班牙廣場 (Plaza de España)",
+                            description: "宏偉的半圓形建築和運河。",
+                            history: "塞維亞的西班牙廣場是為1929年伊比利美洲博覽會而建，是一個巨大的半圓形建築群，融合了文藝復興和摩爾復興風格。廣場中央有運河，可以划船，沿著建築牆壁有52個壁龕，每個代表西班牙的一個省份，並飾有精美的瓷磚地圖和歷史場景。這裡是塞維亞的標誌性地標，也是電影《星際大戰》的取景地之一。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Plaza_de_Espa%C3%B1a%2C_Sevilla_%28Spain%29.jpg/1280px-Plaza_de_Espa%C3%B1a%2C_Sevilla_%28Spain%29.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "燉牛尾 (El Rado de Toro)",
+                            description: "以鬥牛牛尾為主材料，肉質鮮美富含膠質。",
+                            history: "燉牛尾（Rabo de Toro）是塞維亞乃至安達盧西亞地區的經典傳統菜餚，據說起源於鬥牛後的肉品利用。這道菜選用牛的尾巴，經過長時間的慢燉，使其肉質變得極為軟爛，富含膠質，入口即化，並吸收了番茄、紅酒、蔬菜和香料的濃郁風味。是當地餐廳的必點菜餚，也是體驗安達盧西亞風味的最佳選擇之一。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Rabo_de_toro_estofado.jpg/1280px-Rabo_de_toro_estofado.jpg"
+                        },
+                        {
+                            name: "炸魚 (Sabalo Frito)",
+                            description: "將新鮮活魚直接炸製，肉質緊致鮮美。",
+                            history: "安達盧西亞地區因其漫長的海岸線而盛產各式海鮮，炸魚（Pescado Frito）是當地最受歡迎的料理之一。Sabalo Frito是其中的一種，將新鮮的魚肉裹上薄麵粉後，以橄欖油快速炸至金黃酥脆。這道菜的重點在於魚的新鮮度和油炸的技巧，保留了魚肉的原汁原味，口感外酥內嫩，常作為塔帕斯或主菜享用，淋上檸檬汁更是美味。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Fried_fish_platter%2C_Seville.jpg/1280px-Fried_fish_platter%2C_Seville.jpg"
+                        }
+                    ]
+                },
+                {
+                    name: "哥多華",
+                    country: "西班牙",
+                    description: "哥多華是安達盧西亞的另一座歷史名城，曾是伊斯蘭教在西歐的中心，以其獨特的清真寺-大教堂（Mezquita-Cathedral）而聞名。這座城市充滿了花團錦簇的庭院和迷宮般的猶太區，散發著濃郁的歷史韻味。",
+                    reasons: [
+                        "清真寺-大教堂是哥多華的靈魂，這座建築奇蹟將宏偉的清真寺與華麗的基督教大教堂融為一體，展現了不同宗教文化的融合與衝突，是世界建築史上獨一無二的瑰寶。",
+                        "漫步於猶太區（Jewish Quarter）的狹窄巷弄，探索其著名的花巷（Calleja de las Flores），感受古老的氛圍與生活氣息。"
+                    ],
+                    attractions: [
+                        {
+                            name: "清真寺-大教堂 (Mezquita-Cathedral)",
+                            description: "宏偉的清真寺與華麗的大教堂融合。",
+                            history: "哥多華清真寺-大教堂是世界上獨一無二的建築奇蹟。它最初是8世紀摩爾人建立的宏偉清真寺，其標誌性的紅白相間拱門和無數石柱令人印象深刻。13世紀基督教征服後，在清真寺內部加建了華麗的文藝復興式大教堂，形成了兩種宗教建築風格的奇特融合。這座建築見證了伊比利半島的歷史變遷和多元文化的交匯。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Mezquita_de_C%C3%B3rdoba.jpg/1280px-Mezquita_de_C%C3%B3rdoba.jpg"
+                        },
+                        {
+                            name: "猶太區 (Jewish Quarter)",
+                            description: "迷宮般的巷弄和花團錦簇的庭院。",
+                            history: "哥多華猶太區是清真寺-大教堂旁一片歷史悠久的區域，其狹窄蜿蜒的鵝卵石小巷、白色房屋和隱藏的庭院充滿了中世紀的魅力。這裡曾是哥多華猶太社群的居住地，他們在摩爾統治時期享有高度的文化和學術自由。如今，這裡保留了猶太教堂、工藝品店和美麗的庭院，其中最著名的花巷（Calleja de las Flores）更是遊客必訪之地，巷內鮮花盛開，並能透過花叢看到清真寺大教堂的塔樓。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Calleja_de_las_Flores%2C_C%C3%B3rdoba%2C_Spain.jpg/1280px-Calleja_de_las_Flores%2C_C%C3%B3rdoba%2C_Spain.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "哥多華燉牛尾",
+                            description: "當地特色菜，米其林推薦。",
+                            history: "哥多華的燉牛尾（Rabo de Toro Cordobés）是當地非常著名的特色菜，與塞維亞的燉牛尾略有不同。哥多華的燉牛尾以其豐富的歷史和獨特的烹飪方式聞名，通常會加入更多的蔬菜和香料，並經過數小時的慢燉，使牛肉味道更加濃郁，肉質更加酥爛。許多當地餐廳，包括一些米其林推薦的餐廳，都會提供這道菜，是哥多華美食的代表。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Rabo_de_toro_estofado.jpg/1280px-Rabo_de_toro_estofado.jpg"
+                        }, // Reusing oxtail image
+                        {
+                            name: "哥多華炸肉捲",
+                            description: "肉片裹起司培根酥炸，份量大，口感獨特。",
+                            history: "哥多華炸肉捲（Flamenquín Cordobés）是哥多華當地一道受歡迎的特色小吃。它通常由伊比利亞火腿（jamón ibérico）或豬里肌片，捲入奶酪或其他餡料，然後裹上麵包屑後炸至金黃。這道菜外酥內嫩，口感豐富，份量十足，是當地酒吧和餐館的常見選擇，也是哥多華人日常生活中不可或缺的一部分。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/San_Jacobos_con_patatas.jpg/1280px-San_Jacobos_con_patatas.jpg"
+                        } // Generic Spanish fried dish
+                    ]
+                }
+            ],
+            portugalCities: [
+                {
+                    name: "波多",
+                    country: "葡萄牙",
+                    description: "波多是葡萄牙北部的中心城市，位於杜羅河畔，以其獨特的波特酒和迷人的老城區而聞名。這座城市依山傍水，色彩斑斕的房屋和古老的建築，營造出浪漫而懷舊的氛圍。",
+                    reasons: [
+                        "波多是波特酒的故鄉，參觀河畔的波特酒窖，了解波特酒的釀造歷史與工藝，並品嚐不同年份的波特酒，是波多獨有的體驗。",
+                        "里貝拉區（Ribeira）是波多最古老的街區，被聯合國教科文組織列為世界遺產，其狹窄的街道、古老的房屋和河畔的餐廳，充滿了生機與活力。"
+                    ],
+                    attractions: [
+                        {
+                            name: "波特酒窖 (Port Wine Cellars)",
+                            description: "品嚐波特酒的故鄉。",
+                            history: "波特酒是波多最具代表性的特產，這種加烈葡萄酒在杜羅河谷生產，然後運到波多對岸的加亞新城（Vila Nova de Gaia）的酒窖中陳釀。這些歷史悠久的酒窖，如Cálem、Taylor's和Sandeman，提供了導覽和品酒體驗，讓遊客了解波特酒的釀造過程、歷史和不同類型，是波多不容錯過的文化體驗。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Cellars_of_Port_wine_in_Vila_Nova_de_Gaia.jpg/1280px-Cellars_of_Port_wine_in_Vila_Nova_de_Gaia.jpg"
+                        },
+                        {
+                            name: "里貝拉區 (Ribeira)",
+                            description: "波多最古老的街區，世界遺產。",
+                            history: "里貝拉區是波多最古老的商業和漁業區，其歷史可追溯到中世紀。這裡色彩繽紛的房屋沿著杜羅河岸層疊而上，狹窄的巷弄和鵝卵石街道充滿了歷史感。里貝拉區被聯合國教科文組織列為世界遺產，是波多最具代表性的地區之一，遊客可以在河畔的餐廳享用美食，或搭乘遊船欣賞兩岸風光。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Ribeira_D.O.P._Porto.jpg/1280px-Ribeira_D.O.P._Porto.jpg"
+                        },
+                        {
+                            name: "萊羅書店 (Livraria Lello)",
+                            description: "世界最美書店之一。",
+                            history: "萊羅書店成立於1906年，被譽為世界上最美的書店之一，其新哥德式外觀和華麗的內部裝潢令人驚艷。書店內最引人注目的是中央蜿蜒的紅色木質樓梯，以及彩繪玻璃天花板。據說，J.K.羅琳在波多居住期間，曾是這家書店的常客，並從中獲得了《哈利波特》系列小說中霍格華茲圖書館的靈感。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Livraria_Lello_%288339241517%29.jpg/1280px-Livraria_Lello_%288339241517%29.jpg"
+                        },
+                        {
+                            name: "教士塔 (Torre dos Clérigos)",
+                            description: "波多地標，登頂可俯瞰城市全景。",
+                            history: "教士塔是波多最著名的地標之一，由意大利建築師尼科洛·納索尼設計，於18世紀中葉建成，是葡萄牙最傑出的巴洛克式建築之一。這座高達75公尺的塔樓，曾是當時葡萄牙最高的建築。遊客可以攀登225級台階到達塔頂，360度俯瞰波多老城區、杜羅河和周邊的壯麗景色。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Cl%C3%A9rigos_Tower_and_Church%2C_Porto%2C_Portugal.jpg/1280px-Cl%C3%A9rigos_Tower_and_Church%2C_Porto%2C_Portugal.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "波特酒 (Port Wine)",
+                            description: "波多最著名的特產。",
+                            history: "波特酒（Port Wine）是葡萄牙的國寶級甜點酒，原產於杜羅河谷地區。其歷史可追溯到17世紀，當時英國商人為確保葡萄酒在長途海運中不變質，在釀造過程中加入了白蘭地。這種特殊的釀造方式賦予了波特酒濃郁的果香、甜度和較高的酒精含量。波特酒種類繁多，從陳釀於木桶的紅寶石波特（Ruby Port）到陳釀於瓶中的年份波特（Vintage Port），每一種都有獨特的風味和歷史。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Porto_wine.jpg/1280px-Porto_wine.jpg"
+                        },
+                        {
+                            name: "烤沙丁魚 (Sardinhas assadas)",
+                            description: "葡萄牙國寶級美食，炭火炙烤。",
+                            history: "烤沙丁魚（Sardinhas assadas）是葡萄牙夏季最受歡迎的傳統美食，尤其在聖安東尼節（Festas de Santo António）期間更是隨處可見。這種簡單而美味的料理，將新鮮的沙丁魚用粗鹽調味後，直接放在炭火上烤製，烤至外皮焦香，魚肉鮮嫩。它通常搭配烤馬鈴薯或簡單的沙拉，是葡萄牙海岸城市最能代表當地風情的美食之一。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Grilled_sardines_in_Portugal.jpg/1280px-Grilled_sardines_in_Portugal.jpg"
+                        },
+                        {
+                            name: "Francesinha (法蘭西斯飯)",
+                            description: "波多特色三明治，淋上濃郁醬汁。",
+                            history: "Francesinha（意為「小法國女人」或「法國人」）是波多的標誌性美食，據說靈感來自法國的Croque Monsieur三明治。它通常由多層肉類（如火腿、香腸、牛排）、起司和雞蛋層層堆疊，然後淋上獨特的番茄啤酒醬汁，並常搭配薯條。這是一道非常豐盛且高熱量的料理，被譽為波多的「國菜」，深受當地人和遊客的喜愛。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Francesinha_2.jpg/1280px-Francesinha_2.jpg"
+                        },
+                        {
+                            name: "Bacalhau à Brás (葡式炒馬介休)",
+                            description: "切碎的鹹鱈魚、洋蔥、炸薯條和炒雞蛋。",
+                            history: "Bacalhau à Brás（葡式炒馬介休）是葡萄牙最受歡迎的鹹鱈魚料理之一，歷史可以追溯到19世紀的里斯本。這道菜將切碎的鹽漬鱈魚（馬介休）與洋蔥、細條狀炸薯條和炒雞蛋混合烹製，最後撒上切碎的歐芹和黑橄欖。口感豐富，兼具鹹鮮、軟糯和酥脆，是葡萄牙各地都能品嚐到的經典家常菜，展現了葡萄牙人對鱈魚的熱愛和創意。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Bacalhau_%C3%A0_Br%C3%A1s_01.jpg/1280px-Bacalhau_%C3%A0_Br%C3%A1s_01.jpg"
+                        }
+                    ]
+                },
+                {
+                    name: "孔布拉",
+                    country: "葡萄牙",
+                    description: "孔布拉是葡萄牙中部的一座歷史名城，以其古老的孔布拉大學而聞名，這是葡萄牙最古老、最具聲望的大學，也是歐洲最古老的大學之一。這座城市充滿了濃厚的學術氣息和獨特的法朵（Fado）音樂。",
+                    reasons: [
+                        "孔布拉大學是這座城市的靈魂，其若阿尼娜圖書館（Biblioteca Joanina）被譽為世界上最壯觀的巴洛克風格圖書館之一，其華麗的內部裝飾令人嘆為觀止。",
+                        "孔布拉的法朵與里斯本的法朵有所不同，更具學術氣息，通常由學生演唱，充滿了憂鬱而深情的旋律，是體驗葡萄牙文化的重要部分。"
+                    ],
+                    attractions: [
+                        {
+                            name: "孔布拉大學 (University of Coimbra)",
+                            description: "葡萄牙最古老、最具聲望的大學。",
+                            history: "孔布拉大學於1290年創立，是葡萄牙最古老、最負盛名的大學，也是歐洲最古老的大學之一。其校園建築群歷史悠久，融合了不同時代的建築風格。大學不僅是學術中心，也是孔布拉城市文化的核心，這裡誕生了獨特的「孔布拉法朵」，由身穿黑袍的學生演唱，充滿了深沉的思鄉與愛戀。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/University_of_Coimbra_main_building.jpg/1280px-University_of_Coimbra_main_building.jpg"
+                        },
+                        {
+                            name: "若阿尼娜圖書館 (Biblioteca Joanina)",
+                            description: "世界上最壯觀的巴洛克風格圖書館之一。",
+                            history: "若阿尼娜圖書館位於孔布拉大學內部，是18世紀由葡萄牙國王若昂五世資助建造的巴洛克式圖書館。其內部裝潢極盡奢華，天花板上繪有精美的壁畫，書架由來自巴西的珍貴木材製成，金碧輝煌。圖書館收藏了數十萬冊珍貴古籍，更令人稱奇的是，圖書館內飼養了一群蝙蝠，它們在夜間飛出捕食蠹蟲，以保護這些珍貴的藏書。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Biblioteca_Joanina_Coimbra.jpg/1280px-Biblioteca_Joanina_Coimbra.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "Chanfana",
+                            description: "當地特色菜，推薦餐廳Taberna Laura。",
+                            history: "Chanfana是孔布拉地區的傳統特色菜，主要原料是山羊肉，通常會用紅酒、大蒜、月桂葉、橄欖油和各種香料長時間慢燉。這道菜的歷史可以追溯到古代，是當地農村的節慶菜餚，因為燉煮時間長，肉質軟爛入味，充滿了濃郁的香氣。在孔布拉，許多傳統餐廳會提供這道菜，Taberna Laura便是其中一家以Chanfana聞名的餐廳。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Chanfana_de_cabra.jpg/1280px-Chanfana_de_cabra.jpg"
+                        },
+                        {
+                            name: "各式海鮮",
+                            description: "大學城餐飲選擇豐富，海鮮新鮮。",
+                            history: "作為葡萄牙的城市，孔布拉雖然不臨海，但由於葡萄牙對海鮮的熱愛和便捷的運輸，這裡仍能品嚐到新鮮的海產。孔布拉的餐飲選擇豐富，除了傳統肉類菜餚，許多餐廳也提供各式新鮮的海鮮料理，如烤魚、章魚、蛤蜊等。這些海鮮通常以簡單的烹飪方式呈現，如烤或煮，以保留其天然的鮮味。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Seafood_platter.jpg/1280px-Seafood_platter.jpg"
+                        }
+                    ]
+                },
+                {
+                    name: "里斯本",
+                    country: "葡萄牙",
+                    description: "里斯本是葡萄牙的首都，一座依山傍海的七丘之城，充滿了獨特的歷史韻味與海港風情。這座城市曾是大航海時代的中心，其豐富的歷史、迷人的街區和美味的食物，吸引著世界各地的遊客。",
+                    reasons: [
+                        "里斯本的歷史與大航海時代緊密相連，熱羅尼莫斯修道院（Jerónimos Monastery）是曼努埃爾式建築的典範，見證了葡萄牙的黃金時代。",
+                        "阿爾法瑪區（Alfama）是里斯本最古老的街區，其狹窄的巷弄、陡峭的坡道和傳統的法朵音樂，充滿了里斯本的獨特魅力。"
+                    ],
+                    attractions: [
+                        {
+                            name: "熱羅尼莫斯修道院 (Jerónimos Monastery)",
+                            description: "曼努埃爾式建築典範。",
+                            history: "熱羅尼莫斯修道院是葡萄牙曼努埃爾式建築的巔峰之作，於1502年開始建造，旨在紀念達伽馬成功航行到印度。這座宏偉的修道院是里斯本最著名的地標之一，其精緻的石雕、航海主題裝飾和高聳的拱頂，都訴說著葡萄牙大航海時代的輝煌。達伽馬的陵墓也位於修道院內，使其更具歷史意義。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Mosteiro_dos_Jer%C3%B3nimos%2C_Lisboa.jpg/1280px-Mosteiro_dos_Jer%C3%B3nimos%2C_Lisboa.jpg"
+                        },
+                        {
+                            name: "貝倫塔 (Belém Tower)",
+                            description: "象徵葡萄牙的海洋探索精神。",
+                            history: "貝倫塔建於16世紀初，最初是作為里斯本港口的防禦工事，同時也是大航海時代探險家們出發和歸來的標誌。這座塔樓以其獨特的曼努埃爾式建築風格而聞名，融合了哥德式、文藝復興和摩爾式的元素，外牆飾有精美的航海主題雕刻，如繩索、航海儀器和十字架。貝倫塔是里斯本的象徵，也是世界遺產。",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Torre_de_Bel%C3%A9m_%28Lisboa%29.jpg/1280px-Torre_de_Bel%C3%A9m_%28Lisboa%29.jpg"
+                        },
+                        {
+                            name: "聖喬治城堡 (São Jorge Castle)",
+                            description: "可俯瞰城市全景。",
+                            history: "聖喬治城堡坐落在里斯本最高的山丘上，歷史可追溯到羅馬時期，後經摩爾人和葡萄牙國王的多次擴建。這裡曾是摩爾人的堡壘和葡萄牙皇室的居所。如今，城堡大部分是遺跡，但其堅固的城牆、古老的塔樓和優美的花園，以及從城堡高處俯瞰里斯本老城區、特茹河和遠處大西洋的壯麗全景，使其成為里斯本最受歡迎的景點之一。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Castelo_de_S%C3%A3o_Jorge_Overview%2C_Lisbon%2C_Portugal.jpg/1280px-Castelo_de_S%C3%A3o_Jorge_Overview%2C_Lisbon%C3%A3o.jpg"
+                        },
+                        {
+                            name: "辛特拉 (Sintra)",
+                            description: "童話般的山城，擁有浪漫的宮殿和神秘的莊園。",
+                            history: "辛特拉是一座被聯合國教科文組織列為世界遺產的山城，自中世紀以來一直是葡萄牙皇室和貴族的避暑勝地。其獨特的浪漫主義建築風格和茂密的植被，使其充滿了迷人的氛圍。這裡最著名的景點包括色彩斑斕的佩納宮（Pena Palace）、充滿神秘符號的雷加萊拉莊園（Quinta da Regaleira）以及辛特拉國家宮（Sintra National Palace），每個地方都訴說著獨特的故事。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Pal%C3%A1cio_Nacional_da_Pena_-_Sintra%2C_Portugal.jpg/1280px-Pal%C3%A1cio_Nacional_da_Pena_-_Sintra%2C_Portugal.jpg"
+                        }
+                    ],
+                    food: [
+                        {
+                            name: "葡式蛋撻 (Pastel de nata)",
+                            description: "葡萄牙經典甜點，酥脆外皮與香甜內餡。",
+                            history: "葡式蛋撻（Pastel de nata）是葡萄牙最著名的甜點，起源於18世紀里斯本貝倫區的熱羅尼莫斯修道院。當時修道院的修女們使用大量雞蛋清為衣物上漿，多餘的蛋黃便用來製作甜點。這些蛋撻最初被稱為「貝倫蛋撻」，後來被當地的一家糕點店收購配方並發揚光大，其酥脆的外皮、香甜的蛋奶內餡以及頂部焦糖化的斑點，使其成為世界聞名的美味。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Pastel_de_nata_%28Lisboa%29.jpg/1280px-Pastel_de_nata_%28Lisboa%29.jpg"
+                        },
+                        {
+                            name: "章魚沙拉 (Salada de Polvo)",
+                            description: "開胃菜，章魚Q彈爽口，酸甜開胃。",
+                            history: "章魚沙拉（Salada de Polvo）是葡萄牙非常常見的開胃菜，尤其在沿海地區更是家喻戶曉。這道菜將煮熟的章魚切成小塊，與洋蔥、甜椒、歐芹、橄欖油和醋混合調味。章魚肉質Q彈，搭配清爽的蔬菜和酸甜的醬汁，味道鮮美且開胃。它簡單卻充滿地中海風味，是葡萄牙人餐桌上不可或缺的一部分。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Octopus_salad.jpg/1280px-Octopus_salad.jpg"
+                        },
+                        {
+                            name: "炸鱈魚球 (Bolinhos de bacalhau)",
+                            description: "鹽漬鱈魚混馬鈴薯泥製成，外酥內軟。",
+                            history: "炸鱈魚球（Bolinhos de bacalhau或Pastéis de bacalhau）是葡萄牙最經典的國民小吃之一，幾乎在任何一家小吃店、咖啡館都能找到。它以鹽漬鱈魚（馬介休）為主料，與煮熟的馬鈴薯泥、洋蔥、歐芹和雞蛋混合，搓成橄欖狀後炸至金黃。這道菜外酥內軟，魚香濃郁，是搭配葡萄酒或啤酒的絕佳小食。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Patties_with_codfish_and_potatoes_in_Portugal.jpg/1280px-Patties_with_codfish_and_potatoes_in_Portugal.jpg"
+                        },
+                        {
+                            name: "烤蝦 (Camarão grelhado)",
+                            description: "以橄欖油、辣醬和香料調味，鮮嫩香氣十足。",
+                            history: "烤蝦（Camarão grelhado）是葡萄牙沿海地區非常受歡迎的海鮮料理。葡萄牙擁有豐富的海岸線，海產新鮮且多樣。這道菜的做法簡單卻能凸顯蝦的鮮美，通常將新鮮的大蝦用橄欖油、大蒜、少許辣椒粉和歐芹醃製後，直接放在炭火上烤製。烤好的蝦肉質彈牙，香氣撲鼻，是海鮮愛好者的必點菜餚。",
+                        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Grilled_shrimp_on_skewers.jpg/1280px-Grilled_shrimp_on_skewers.jpg"
+                        },
+                        {
+                            name: "炒蛤蠣 (Amêijoas à bulhão pato)",
+                            description: "以奶油、橄欖油、大蒜調味，香氣十足。",
+                            history: "炒蛤蠣（Amêijoas à Bulhão Pato）是葡萄牙一道簡單卻極其美味的經典海鮮菜餚。這道菜得名於19世紀的葡萄牙詩人Raimundo António de Bulhão Pato，據說他非常喜愛這道菜。它將新鮮的蛤蜊用橄欖油、大蒜、白葡萄酒和香菜快速翻炒，湯汁鮮美，蛤蜊肉質飽滿，帶有濃郁的大蒜和香草香氣，是搭配麵包和葡萄酒的絕佳選擇。",
+                            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Ameijoas_a_bulhao_pato.jpg/1280px-Ameijoas_a_bulhao_pato.jpg"
+                        }
+                    ]
+                }
+            ],
+            dailyItinerary: [
+                {
+                    day: 1,
+                    date: "9/25 (三)",
+                    city: "巴塞隆納",
+                    am: "傍晚抵達巴塞隆納埃爾普拉特機場 (BCN)，前往酒店辦理入住。",
+                    pm: "輕鬆享用晚餐，漫步酒店周邊，感受巴塞隆納初夜氛圍。",
+                    dinner: "西班牙海鮮燉飯Paella (Sagradas Tapas或Vinitus)",
+                    transport: "機場到市區：出租車約20分鐘，€35-€40；或地鐵約30分鐘，€4.5"
+                },
+                {
+                    day: 2,
+                    date: "9/26 (四)",
+                    city: "巴塞隆納",
+                    am: "09:00-12:30 參觀聖家堂 (Sagrada Família)。(原因：避開中午人潮，光線較佳，需提前線上預訂門票)",
+                    pm: "14:00-17:30 探索奎爾公園 (Park Güell)。(原因：高第代表作，需提前線上購票，現場無售票處)",
+                    dinner: "塔帕斯Tapas (Vinitus)",
+                    transport: "市區交通：地鐵/巴士，單程約€2.4"
+                },
+                {
+                    day: 3,
+                    date: "9/27 (五)",
+                    city: "巴塞隆納",
+                    am: "09:30-12:00 參觀巴特略之家 (Casa Batlló)。(原因：高第建築精華，線上購票比現場便宜且確保入場時間)",
+                    pm: "14:00-16:30 參觀畢卡索美術館 (Picasso Museum) 及加泰隆尼亞音樂宮 (Palau de la Música Catalana)。(原因：畢卡索美術館人潮不多，建議早晨或閉館前參觀；音樂宮需預約導覽)",
+                    dinner: "巴斯克乳酪蛋糕Basque Cheesecake (Cheesebakers或JonCake)",
+                    transport: "市區交通：地鐵/巴士，單程約€2.4"
+                },
+                {
+                    day: 4,
+                    date: "9/28 (六)",
+                    city: "托雷多",
+                    am: "09:00-11:00 從巴塞隆納搭火車前往托雷多。(原因：火車最快，約4小時4分鐘)",
+                    pm: "12:30-17:30 漫步托雷多古城，參觀托雷多大教堂、聖瑪麗亞布蘭卡猶太教堂等景點。傍晚入住托雷多國營旅館 (Parador de Toledo)。(原因：深度體驗古城歷史，大教堂需著裝得體，猶太教堂可提前預約)",
+                    dinner: "傳統糕點Mazapan",
+                    transport: "巴塞隆納-托雷多：火車約4小時4分鐘，€30-€95"
+                },
+                {
+                    day: 5,
+                    date: "9/29 (日)",
+                    city: "馬德里",
+                    am: "09:00-10:00 從托雷多搭火車前往馬德里。(原因：火車便捷，約34分鐘)",
+                    pm: "11:00-17:00 抵達馬德里，辦理入住。下午參觀普拉多美術館 (Prado Museum)。(原因：世界級美術館，建議提前線上購票，避開人潮)",
+                    dinner: "西班牙烘蛋Tortilla Española",
+                    transport: "托雷多-馬德里：火車約34分鐘，€7-€10"
+                },
+                {
+                    day: 6,
+                    date: "9/30 (一)",
+                    city: "馬德里",
+                    am: "09:30-12:30 參觀馬德里皇宮 (Royal Palace)。(原因：歐洲最大皇宮之一，建議提前線上購票或參加導覽跳過排隊，避開人潮)",
+                    pm: "14:00-17:00 探索馬德里市區，如太陽門廣場 (Puerta del Sol)、馬約爾廣場 (Plaza Mayor)。(原因：感受城市中心脈動，體驗當地生活)",
+                    dinner: "桑格利亞酒Sangria",
+                    transport: "市區交通：地鐵/步行"
+                },
+                {
+                    day: 7,
+                    date: "10/1 (二)",
+                    city: "馬德里",
+                    am: "08:30-17:00 一日遊塞哥維亞：參觀羅馬水道橋 (Roman Aqueduct) 和塞哥維亞城堡 (Alcázar of Segovia)。(原因：羅馬水道橋免費，城堡週一閉館，故安排在週二，確保能參觀)",
+                    pm: "傍晚返回馬德里。 (原因：塞哥維亞一日遊時間充足，可深度體驗)",
+                    dinner: "烤乳豬Cochinillo Asado (塞哥維亞特色)",
+                    transport: "馬德里-塞哥維亞：高鐵約30分鐘"
+                },
+                {
+                    day: 8,
+                    date: "10/2 (三)",
+                    city: "格拉納達",
+                    am: "09:00-13:00 從馬德里搭火車前往格拉納達。(原因：火車便捷，約3小時20分鐘)",
+                    pm: "14:30-18:00 抵達格拉納達，辦理入住。傍晚在阿爾拜辛區 (Albaicín) 漫步，欣賞日落。(原因：阿爾拜辛區是摩爾人古區，異國風情濃厚，日落景色壯觀)",
+                    dinner: "隨酒贈送塔帕斯Tapas",
+                    transport: "馬德里-格拉納達：火車約3小時20分鐘，€60-€90"
+                },
+                {
+                    day: 9,
+                    date: "10/3 (四)",
+                    city: "格拉納達",
+                    am: "09:00-17:00 全天：深度參觀阿爾罕布拉宮 (Alhambra)。(原因：世界遺產，需預留充足時間，納斯里德宮殿有指定入場時段，需提前線上預訂)",
+                    pm: "(原因：確保有足夠時間細細品味宮殿及花園，避免走馬看花)",
+                    dinner: "豆類火腿雜燴Habas con jamón",
+                    transport: "市區交通：步行/巴士"
+                },
+                {
+                    day: 10,
+                    date: "10/4 (五)",
+                    city: "格拉納達",
+                    am: "09:30-12:30 探索薩克羅蒙特區 (Sacromonte)。(原因：吉普賽洞穴屋區，體驗獨特文化，可欣賞弗拉明戈表演)",
+                    pm: "14:00-17:00 自由探索格拉納達市區，如大教堂、皇家禮拜堂。 (原因：彈性安排，可補足前一天未盡之處或深入當地市場)",
+                    dinner: "安達盧西亞冷湯Gazpacho/Salmorejo",
+                    transport: "市區交通：步行/巴士"
+                },
+                {
+                    day: 11,
+                    date: "10/5 (六)",
+                    city: "隆達",
+                    am: "09:00-11:30 從格拉納達搭巴士前往隆達。(原因：巴士是隆達最便捷的交通方式，約2.5-3小時)",
+                    pm: "12:30-17:00 抵達隆達，辦理入住。參觀新橋 (Puente Nuevo) 和隆達鬥牛場 (Plaza de Toros de Ronda)。(原因：新橋是隆達標誌，鬥牛場是西班牙最古老鬥牛場之一，建議參觀博物館)",
+                    dinner: "隆達當地美食",
+                    transport: "格拉納達-隆達：巴士約2.5-3小時，€16-€20"
+                },
+                {
+                    day: 12,
+                    date: "10/6 (日)",
+                    city: "塞維亞",
+                    am: "09:00-11:00 從隆達搭巴士前往塞維亞。(原因：巴士直達，約1小時40分鐘)",
+                    pm: "12:00-17:00 抵達塞維亞，辦理入住。傍晚在西班牙廣場 (Plaza de España) 欣賞日落。(原因：西班牙廣場宏偉壯觀，日落時分景色尤佳)",
+                    dinner: "燉牛尾El Rado de Toro",
+                    transport: "隆達-塞維亞：巴士約1小時40分鐘，€13-€17"
+                },
+                {
+                    day: 13,
+                    date: "10/7 (一)",
+                    city: "哥多華",
+                    am: "08:30-17:00 一日遊哥多華：參觀清真寺-大教堂 (Mezquita-Cathedral) 及猶太區 (Jewish Quarter)。(原因：清真寺大教堂是世界遺產，建議把握早上免費時段，需著裝得體)",
+                    pm: "傍晚返回塞維亞。 (原因：哥多華一日遊時間充足，可深度體驗)",
+                    dinner: "炸肉捲 (哥多華特色)",
+                    transport: "塞維亞-哥多華：火車約45分鐘-1小時，€20-€30"
+                },
+                {
+                    day: 14,
+                    date: "10/8 (二)",
+                    city: "塞維亞",
+                    am: "09:00-12:30 參觀塞維亞大教堂 (Seville Cathedral) 及吉拉達塔 (Giralda)。(原因：歐洲最大哥德式教堂，吉拉達塔可俯瞰城市，建議提前線上購票免排隊)",
+                    pm: "13:00-16:00 參觀塞維亞王宮 (Real Alcázar)。(原因：摩爾式建築精華，需攜帶身份證件，建議提前線上購票)",
+                    dinner: "晚餐後前往塞維亞機場",
+                    transport: "塞維亞-波多：飛機 (經里斯本轉機)，約3-5小時 (含轉機)，€50-€150+"
+                },
+                {
+                    day: 15,
+                    date: "10/9 (三)",
+                    city: "波多",
+                    am: "09:30-12:30 探索波多里貝拉區 (Ribeira)。(原因：世界遺產老城區，感受波多獨特魅力)",
+                    pm: "14:00-17:00 參觀波特酒窖 (Port Wine Cellars)。(原因：波特酒故鄉，建議選擇有導覽和品酒的酒窖，如Cálem或Taylor's)",
+                    dinner: "烤沙丁魚Sardinhas assadas",
+                    transport: "波多機場到市區：地鐵約25分鐘，€2.45；市區交通：步行/地鐵/巴士"
+                },
+                {
+                    day: 16,
+                    date: "10/10 (四)",
+                    city: "波多",
+                    am: "09:30-12:00 參觀萊羅書店 (Livraria Lello)。(原因：世界最美書店之一，需提前線上購票並預約時段，建議早訪避開人潮)",
+                    pm: "13:30-16:00 參觀教士塔 (Torre dos Clérigos)。(原因：波多地標，登頂可俯瞰城市全景，建議購買套票)",
+                    dinner: "Francesinha (法蘭西斯飯)",
+                    transport: "市區交通：步行/地鐵/巴士"
+                },
+                {
+                    day: 17,
+                    date: "10/11 (五)",
+                    city: "孔布拉",
+                    am: "09:00-10:30 從波多搭火車前往孔布拉。(原因：火車便捷，約1小時15分-1小時40分)",
+                    pm: "11:30-17:00 參觀孔布拉大學 (若阿尼娜圖書館、皇家宮殿、聖米歇爾禮拜堂)。(原因：世界遺產大學，若阿尼娜圖書館需預約時段且不能拍照，建議提前線上購票)",
+                    dinner: "Chanfana (Taberna Laura)",
+                    transport: "波多-孔布拉：火車約1小時15分-1小時40分，€6-€26"
+                },
+                {
+                    day: 18,
+                    date: "10/12 (六)",
+                    city: "里斯本",
+                    am: "09:00-10:30 從孔布拉搭火車前往里斯本。(原因：火車便捷，約1小時39分-2小時10分)",
+                    pm: "11:30-17:00 抵達里斯本，辦理入住。下午探索阿爾法瑪區 (Alfama) 及聖喬治城堡 (São Jorge Castle)。(原因：里斯本最古老街區，聖喬治城堡可俯瞰全景，建議穿舒適鞋)",
+                    dinner: "葡式蛋撻Pastel de nata (Manteigaria)",
+                    transport: "孔布拉-里斯本：火車約1小時39分-2小時10分，€7-€40"
+                },
+                {
+                    day: 19,
+                    date: "10/13 (日)",
+                    city: "里斯本",
+                    am: "09:30-12:30 參觀熱羅尼莫斯修道院 (Jerónimos Monastery) 及貝倫塔 (Belém Tower) 外部欣賞。(原因：修道院是世界遺產，貝倫塔目前關閉維修，但外部仍具歷史意義)",
+                    pm: "13:30-18:00 安排辛特拉 (Sintra) 一日遊 (佩納宮、雷加萊拉莊園)。(原因：世界遺產，需預留充足時間，建議提前購票)",
+                    dinner: "烤蝦Camarão grelhado",
+                    transport: "市區交通：地鐵/巴士；里斯本-辛特拉：火車約40分鐘"
+                },
+                {
+                    day: 20,
+                    date: "10/14 (一)",
+                    city: "里斯本",
+                    am: "09:30-12:30 自由探索里斯本市區，可選擇再次探索阿爾法瑪區，或參觀其他博物館、景點。(原因：彈性安排，可補足前一天未盡之處或深入當地市場)",
+                    pm: "14:00-17:00 購物或享受悠閒時光，準備離開。(原因：輕鬆結束旅程，可購買紀念品)",
+                    dinner: "炒蛤蠣Amêijoas à bulhão pato",
+                    transport: "市區交通：地鐵/巴士"
+                },
+                {
+                    day: 21,
+                    date: "10/15 (二)",
+                    city: "離開里斯本",
+                    am: "清晨從里斯本國際機場 (LIS) 搭機離開。 (原因：預留充足時間辦理登機手續)",
+                    pm: "",
+                    dinner: "",
+                    transport: "里斯本市區到機場：地鐵約35分鐘，€1.45；或出租車約20分鐘，€20"
+                }
+            ],
+            transportationTips: `
+                <h2 class="text-xl font-semibold mb-2 text-emerald-700">交通指南與預估花費</h2>
+                <h3 class="text-lg font-medium mb-1 text-gray-800">機場往返市區交通</h3>
+                <h4 class="font-semibold text-gray-700">巴塞隆納埃爾普拉特機場 (BCN)：</h4>
+                <ul class="list-disc list-inside ml-4 mb-2">
+                    <li><strong>出租車：</strong> 最快方式，約20分鐘，費用約€35-€40。夜間（20:00-08:00）或週末/公共假日費用會稍高，增加約€3.1。</li>
+                    <li><strong>地鐵：</strong> L9號線，約30-35分鐘，票價約€4.5。</li>
+                    <li><strong>巴士：</strong> 約40分鐘，票價約€2.15-€5.3。</li>
+                    <li><strong>火車：</strong> 約40分鐘，票價約€4。</li>
+                </ul>
+                <h4 class="font-semibold text-gray-700">波多費爾南多·薩·卡內羅機場 (OPO)：</h4>
+                <ul class="list-disc list-inside ml-4 mb-2">
+                    <li><strong>出租車：</strong> 最快方式，約20分鐘，費用約€23。夜間（21:00-06:00）或週末/公共假日費用會高約20%。</li>
+                    <li><strong>地鐵：</strong> E線，約25分鐘，票價約€2.45（含€0.6可退卡費）。</li>
+                    <li><strong>巴士：</strong> 約30分鐘，費用約€2。</li>
+                </ul>
+                <h4 class="font-semibold text-gray-700">里斯本溫貝托·德爾加多機場 (LIS)：</h4>
+                <ul class="list-disc list-inside ml-4 mb-2">
+                    <li><strong>出租車：</strong> 最方便方式，約20分鐘，費用約€20。</li>
+                    <li><strong>地鐵：</strong> 紅線，約35分鐘（需轉線），票價約€1.45（需另購€0.5可充值Viva Viagem卡）。</li>
+                    <li><strong>巴士：</strong> 約35-45分鐘，票價約€3.22-€4。</li>
+                </ul>
+
+                <h3 class="text-lg font-medium mb-1 text-gray-800">城市間交通：火車、巴士、國內航班選擇與建議</h3>
+                <p class="mb-2">伊比利半島的城市間交通網絡發達，火車、巴士和國內航班是主要選擇。選擇何種交通方式，通常取決於距離、時間預算和費用考量。</p>
+                <h4 class="font-semibold text-gray-700">火車 (Renfe, Comboios de Portugal)：</h4>
+                <ul class="list-disc list-inside ml-4 mb-2">
+                    <li><strong>優勢：</strong> 速度快，尤其是在西班牙境內的高鐵AVE，如巴塞隆納到馬德里、馬德里到塞維亞等主要城市間。座位舒適，適合長途旅行。葡萄牙的Alfa Pendular和Intercidades列車也提供快速便捷的服務。</li>
+                    <li><strong>價格：</strong> 提前預訂通常能獲得更優惠的價格。</li>
+                </ul>
+                <h4 class="font-semibold text-gray-700">巴士 (Alsa, Rede Expressos, FlixBus)：</h4>
+                <ul class="list-disc list-inside ml-4 mb-2">
+                    <li><strong>優勢：</strong> 價格通常比火車便宜，尤其是在一些火車班次較少或沒有直達的路線，如格拉納達至隆達。巴士網絡覆蓋廣泛，能到達更多小鎮。</li>
+                    <li><strong>價格：</strong> 最經濟的選擇。</li>
+                </ul>
+                <h4 class="font-semibold text-gray-700">國內航班：</h4>
+                <ul class="list-disc list-inside ml-4 mb-2">
+                    <li><strong>優勢：</strong> 跨國或長距離移動最快的方式，如從西班牙南部（塞維亞）前往葡萄牙北部（波多）。</li>
+                    <li><strong>價格：</strong> 票價波動較大，提前預訂或選擇廉價航空能節省費用。</li>
+                </ul>
+            `,
+            travelTips: `
+                <h2 class="text-xl font-semibold mb-2 text-emerald-700">旅行小貼士與注意事項</h2>
+                <ul class="list-disc list-inside ml-4">
+                    <li><strong>文化禮儀：</strong> 西班牙和葡萄牙人熱情好客，用餐時給予適當小費是慣例。在宗教場所參觀時，請注意著裝得體，避免過於暴露的服裝。</li>
+                    <li><strong>安全須知：</strong> 歐洲大城市扒手較多，尤其在觀光景點和人潮擁擠處，務必保管好個人財物，隨身攜帶證件和錢財，切勿外露。</li>
+                    <li><strong>貨幣與支付：：</strong> 西班牙和葡萄牙均使用歐元。建議攜帶少量現金，並多使用信用卡支付。</li>
+                    <li><strong>通訊：：：：：：：：：：：：：</strong> 建議購買當地電話卡或eSIM，確保旅途中網路暢通，方便導航和查詢資訊。</li>
+                    <li><strong>時差：：：：：：：：：：：：：：：：</strong> 葡萄牙比台灣慢7小時，西班牙比台灣慢6小時。在行程中要注意調整作息，避免因時差產生的不適。</li>
+                    <li><strong>電壓與插座：：：：：：：：：：：：：：：：</strong> 西班牙和葡萄牙均使用歐標插頭（兩圓孔），電壓為220V，請準備好插頭轉換器。</li>
+                    <li><strong>著裝：：：：：：：：：：：：：：：：：：</strong> 9月下旬至10月中旬，伊比利半島氣溫適中但多變。建議攜帶輕便的春秋裝，並備一件防風外套或薄羽絨服以應對早晚溫差或酒窖內的陰涼。全程將有大量步行，務必準備一雙舒適的鞋子。</li>
+                    <li><strong>飲水：：：：：：：：：：：：：：：：：：：</strong> 建議自備水瓶，隨時補充水分，尤其是在戶外活動較多的日子。</li>
+                    <li><strong>預訂確認：：：：：：：：：：：：：：：：：：：：</strong> 所有預訂的門票、交通和住宿，請務必提前確認，並將電子憑證或列印件保存在手機或隨身包中。</li>
+                </ul>
+            `
+        };
+
+        // 交通費用數據，用於圖表
+        const interCityTransportData = [
+            { from: '巴塞隆納', to: '托雷多', type: '火車', cost: { min: 30, max: 95 } },
+            { from: '托雷多', to: '馬德里', type: '火車', cost: { min: 7, max: 10 } },
+            { from: '馬德里', to: '塞哥維亞', type: '高鐵', cost: { min: 10, max: 20 } },
+            { from: '馬德里', to: '格拉納達', type: '火車', cost: { min: 60, max: 90 } },
+            { from: '格拉納達', to: '隆達', type: '巴士', cost: { min: 16, max: 20 } },
+            { from: '隆達', to: '塞維亞', type: '巴士', cost: { min: 13, max: 17 } },
+            { from: '塞維亞', to: '哥多華', type: '火車', cost: { min: 20, max: 30 } },
+            { from: '塞維亞', to: '波多', type: '飛機', cost: { min: 50, max: 150 } },
+            { from: '波多', to: '孔布拉', type: '火車', cost: { min: 6, max: 26 } },
+            { from: '孔布拉', to: '里斯本', type: '火車', cost: { min: 7, max: 40 } },
+        ];
+
+        const transportChartData = interCityTransportData.map(item => ({
+            route: `${item.from}-${item.to} (${item.type})`,
+            avgCost: (item.cost.min + item.cost.max) / 2
+        })).sort((a, b) => b.avgCost - a.avgCost); // 按平均費用降序排列
+
+        const maxCost = Math.max(...transportChartData.map(d => d.avgCost), 0) * 1.2; // 增加20%作為Y軸上限緩衝
+        const chartHeight = 200; // 圖表高度 (不含padding)
+        const chartWidth = 700; // 圖表寬度 (不含padding)
+        const barWidth = 40;
+        const paddingX = 50; // X軸左右留白
+        const paddingY = 30; // Y軸上下留白
+        const usableWidth = chartWidth - 2 * paddingX;
+        const barCount = transportChartData.length;
+        const barSpacing = barCount > 1 ? (usableWidth - (barCount * barWidth)) / (barCount - 1) : 0;
+        const xAxisStart = paddingX;
+        const yAxisStart = chartHeight - paddingY;
+
+        // 地圖上的城市座標，用於 Google Maps 路線查詢 (英文名稱以確保精確度)
+        const routeCitiesForMap = [
+            'Barcelona, Spain', 'Toledo, Spain', 'Madrid, Spain', 'Segovia, Spain', 'Granada, Spain',
+            'Ronda, Spain', 'Seville, Spain', 'Cordoba, Spain', 'Porto, Portugal', 'Coimbra, Portugal', 'Lisbon, Portugal'
+        ];
+
+        // 構造 Google Maps 嵌入 URL
+        const googleMapsEmbedUrl = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyBM-kOALLfnQd0V0F_yR6F3ghZIwXEMWs8&origin=${encodeURIComponent(routeCitiesForMap[0])}&destination=${encodeURIComponent(routeCitiesForMap[routeCitiesForMap.length - 1])}&waypoints=${encodeURIComponent(routeCitiesForMap.slice(1, -1).join('|'))}&mode=driving`;
+
+        // 全局狀態變數
+        let currentActiveTab = 'overview';
+        const llmOutputCache = {}; // 儲存 LLM 生成的內容
+        let currentLoadingLlmId = null; // 追蹤正在載入 LLM 內容的項目 ID
+
+        // LLM 內容生成函數
+        async function generateLlmContent(itemId, prompt, targetElementId) {
+            if (currentLoadingLlmId === itemId) return; // 防止重複點擊
+
+            currentLoadingLlmId = itemId;
+            const button = document.getElementById(itemId + '-button');
+            if (button) {
+                button.textContent = '生成中...';
+                button.disabled = true;
+            }
+            const outputElement = document.getElementById(targetElementId);
+            if (outputElement) {
+                outputElement.innerHTML = '<span class="font-semibold">趣聞/搭配：</span> 正在生成內容，請稍候...';
+            }
+
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+            const payload = { contents: chatHistory };
+            const apiKey = ""; // Canvas 會在運行時自動提供此 API key
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    llmOutputCache[itemId] = text; // 儲存到快取
+                    if (outputElement) {
+                        outputElement.innerHTML = `<span class="font-semibold">趣聞/搭配：</span> ${text}`;
+                    }
+                } else {
+                    if (outputElement) {
+                        outputElement.innerHTML = '<span class="font-semibold">趣聞/搭配：</span> 無法生成內容。';
+                    }
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                if (outputElement) {
+                    outputElement.innerHTML = '<span class="font-semibold">趣聞/搭配：</span> 生成內容時發生錯誤。';
+                }
+            } finally {
+                currentLoadingLlmId = null; // 結束載入狀態
+                if (button) {
+                    button.textContent = itemId.startsWith('attraction-') ? '✨ 更多文化趣聞' : '✨ 建議搭配飲品';
+                    button.disabled = false;
+                }
+            }
+        }
+
+        // 渲染內容的函數
+        function renderTabContent(tabName) {
+            const mainContentDiv = document.getElementById('main-content');
+            mainContentDiv.innerHTML = ''; // 清空內容
+
+            // 更新導航按鈕的活躍狀態
+            document.querySelectorAll('.tab-button').forEach(button => {
+                if (button.id === `tab-${tabName}`) {
+                    button.classList.add('bg-emerald-600', 'text-white', 'transform', 'scale-105');
+                    button.classList.remove('bg-white', 'text-emerald-600', 'hover:bg-emerald-50', 'hover:text-emerald-700');
+                } else {
+                    button.classList.remove('bg-emerald-600', 'text-white', 'transform', 'scale-105');
+                    button.classList.add('bg-white', 'text-emerald-600', 'hover:bg-emerald-50', 'hover:text-emerald-700');
+                }
+            });
+
+            currentActiveTab = tabName; // 更新當前活躍標籤
+
+            let htmlContent = '';
+
+            switch (tabName) {
+                case 'overview':
+                    htmlContent = `
+                        <div class="bg-white p-6 sm:p-8 rounded-lg shadow-xl mb-8">
+                            <h2 class="text-2xl sm:text-3xl font-bold mb-4 text-cyan-800">旅程亮點與特色</h2>
+                            <ul class="list-disc list-inside space-y-2 text-lg leading-relaxed">
+                                ${appData.overview.highlights.map(h => `<li class="text-gray-700">${h}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                case 'spain':
+                    htmlContent = `<h2 class="text-2xl sm:text-3xl font-bold mb-6 text-cyan-800 text-center">西班牙必訪城市深度解析</h2>`;
+                    appData.spainCities.forEach((city, cityIndex) => {
+                        htmlContent += `
+                            <div class="mb-6 bg-white rounded-lg shadow-md p-6 sm:p-8">
+                                <h3 class="text-2xl font-bold mb-4 text-emerald-700">${city.name}</h3>
+                                <p class="mb-4 text-gray-700 leading-relaxed">${city.description}</p>
+
+                                <h4 class="text-xl font-semibold mb-2 text-emerald-700">必訪原因：</h4>
+                                <ul class="list-disc list-inside space-y-1 mb-4 text-gray-700">
+                                    ${city.reasons.map(reason => `<li>${reason}</li>`).join('')}
+                                </ul>
+
+                                <h4 class="text-xl font-semibold mb-2 text-emerald-700">推薦景點：</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                                    ${city.attractions.map((attraction, aIndex) => {
+                                        const itemId = `attraction-${city.name}-${aIndex}`;
+                                        const outputElementId = `llm-output-${itemId}`;
+                                        const cachedOutput = llmOutputCache[itemId] || '';
+                                        return `
+                                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+                                                <p class="font-medium text-lg text-cyan-800 mb-2">${attraction.name}</p>
+                                                <img
+                                                    src="${attraction.imageUrl}"
+                                                    alt="[${attraction.name} 的圖片]"
+                                                    class="w-full h-36 object-cover rounded-md mb-2"
+                                                    onerror="this.onerror=null; this.src='https://placehold.co/300x200/ADD8E6/000000?text=圖片載入失敗';"
+                                                />
+                                                <p class="text-sm text-gray-600">${attraction.description}</p>
+                                                ${attraction.history ? `<p class="text-xs text-gray-500 mt-2 text-left w-full"><span class="font-semibold">歷史與特色：</span>${attraction.history}</p>` : ''}
+                                                <button
+                                                    id="${itemId}-button"
+                                                    class="mt-3 px-4 py-2 bg-fuchsia-600 text-white rounded-full text-sm font-medium hover:bg-fuchsia-700 transition duration-300 ease-in-out shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    onclick="generateLlmContent('${itemId}', 'Generate a short, interesting cultural fact or unique historical anecdote (about 30-50 words) about ${attraction.name}, located in ${city.name}, ${city.country}. Make it engaging for a traveler.', '${outputElementId}')"
+                                                >
+                                                    ✨ 更多文化趣聞
+                                                </button>
+                                                <p id="${outputElementId}" class="text-xs text-fuchsia-800 mt-2 text-left w-full p-2 bg-fuchsia-100 rounded-md">
+                                                    ${cachedOutput ? `<span class="font-semibold">趣聞：</span> ${cachedOutput}` : ''}
+                                                </p>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+
+                                <h4 class="text-xl font-semibold mb-2 text-emerald-700">必嚐美食：</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    ${city.food.map((foodItem, fIndex) => {
+                                        const itemId = `food-${city.name}-${fIndex}`;
+                                        const outputElementId = `llm-output-${itemId}`;
+                                        const cachedOutput = llmOutputCache[itemId] || '';
+                                        return `
+                                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+                                                <p class="font-medium text-lg text-cyan-800 mb-2">${foodItem.name}</p>
+                                                <img
+                                                    src="${foodItem.imageUrl}"
+                                                    alt="[${foodItem.name} 的圖片]"
+                                                    class="w-full h-36 object-cover rounded-md mb-2"
+                                                    onerror="this.onerror=null; this.src='https://placehold.co/300x200/F08080/FFFFFF?text=圖片載入失敗';"
+                                                />
+                                                <p class="text-sm text-gray-600">${foodItem.description}</p>
+                                                ${foodItem.history ? `<p class="text-xs text-gray-500 mt-2 text-left w-full"><span class="font-semibold">歷史與特色：</span>${foodItem.history}</p>` : ''}
+                                                <button
+                                                    id="${itemId}-button"
+                                                    class="mt-3 px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-orange-600 transition duration-300 ease-in-out shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    onclick="generateLlmContent('${itemId}', 'Suggest a traditional local drink pairing for ${foodItem.name} from ${city.name}, ${city.country}. Explain why it pairs well in a short sentence (about 20-30 words).', '${outputElementId}')"
+                                                >
+                                                    ✨ 建議搭配飲品
+                                                </button>
+                                                <p id="${outputElementId}" class="text-xs text-orange-800 mt-2 text-left w-full p-2 bg-orange-100 rounded-md">
+                                                    ${cachedOutput ? `<span class="font-semibold">搭配：</span> ${cachedOutput}` : ''}
+                                                </p>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    break;
+                case 'portugal':
+                    htmlContent = `<h2 class="text-2xl sm:text-3xl font-bold mb-6 text-cyan-800 text-center">葡萄牙必訪城市深度解析</h2>`;
+                    appData.portugalCities.forEach((city, cityIndex) => {
+                        htmlContent += `
+                            <div class="mb-6 bg-white rounded-lg shadow-md p-6 sm:p-8">
+                                <h3 class="text-2xl font-bold mb-4 text-emerald-700">${city.name}</h3>
+                                <p class="mb-4 text-gray-700 leading-relaxed">${city.description}</p>
+
+                                <h4 class="text-xl font-semibold mb-2 text-emerald-700">必訪原因：</h4>
+                                <ul class="list-disc list-inside space-y-1 mb-4 text-gray-700">
+                                    ${city.reasons.map(reason => `<li>${reason}</li>`).join('')}
+                                </ul>
+
+                                <h4 class="text-xl font-semibold mb-2 text-emerald-700">推薦景點：</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                                    ${city.attractions.map((attraction, aIndex) => {
+                                        const itemId = `attraction-${city.name}-${aIndex}`;
+                                        const outputElementId = `llm-output-${itemId}`;
+                                        const cachedOutput = llmOutputCache[itemId] || '';
+                                        return `
+                                            <div class="bg-emerald-50 p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+                                                <p class="font-medium text-lg text-emerald-800 mb-2">${attraction.name}</p>
+                                                <img
+                                                    src="${attraction.imageUrl}"
+                                                    alt="[${attraction.name} 的圖片]"
+                                                    class="w-full h-36 object-cover rounded-md mb-2"
+                                                    onerror="this.onerror=null; this.src='https://placehold.co/300x200/90EE90/000000?text=圖片載入失敗';"
+                                                />
+                                                <p class="text-sm text-gray-600">${attraction.description}</p>
+                                                ${attraction.history ? `<p class="text-xs text-gray-500 mt-2 text-left w-full"><span class="font-semibold">歷史與特色：</span>${attraction.history}</p>` : ''}
+                                                <button
+                                                    id="${itemId}-button"
+                                                    class="mt-3 px-4 py-2 bg-fuchsia-600 text-white rounded-full text-sm font-medium hover:bg-fuchsia-700 transition duration-300 ease-in-out shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    onclick="generateLlmContent('${itemId}', 'Generate a short, interesting cultural fact or unique historical anecdote (about 30-50 words) about ${attraction.name}, located in ${city.name}, ${city.country}. Make it engaging for a traveler.', '${outputElementId}')"
+                                                >
+                                                    ✨ 更多文化趣聞
+                                                </button>
+                                                <p id="${outputElementId}" class="text-xs text-fuchsia-800 mt-2 text-left w-full p-2 bg-fuchsia-100 rounded-md">
+                                                    ${cachedOutput ? `<span class="font-semibold">趣聞：</span> ${cachedOutput}` : ''}
+                                                </p>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+
+                                <h4 class="text-xl font-semibold mb-2 text-emerald-700">必嚐美食：</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    ${city.food.map((foodItem, fIndex) => {
+                                        const itemId = `food-${city.name}-${fIndex}`;
+                                        const outputElementId = `llm-output-${itemId}`;
+                                        const cachedOutput = llmOutputCache[itemId] || '';
+                                        return `
+                                            <div class="bg-emerald-50 p-4 rounded-lg shadow-sm flex flex-col items-center text-center">
+                                                <p class="font-medium text-lg text-emerald-800 mb-2">${foodItem.name}</p>
+                                                <img
+                                                    src="${foodItem.imageUrl}"
+                                                    alt="[${foodItem.name} 的圖片]"
+                                                    class="w-full h-36 object-cover rounded-md mb-2"
+                                                    onerror="this.onerror=null; this.src='https://placehold.co/300x200/FFD700/000000?text=圖片載入失敗';"
+                                                />
+                                                <p class="text-sm text-gray-600">${foodItem.description}</p>
+                                                ${foodItem.history ? `<p class="text-xs text-gray-500 mt-2 text-left w-full"><span class="font-semibold">歷史與特色：</span>${foodItem.history}</p>` : ''}
+                                                <button
+                                                    id="${itemId}-button"
+                                                    class="mt-3 px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-medium hover:bg-orange-600 transition duration-300 ease-in-out shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    onclick="generateLlmContent('${itemId}', 'Suggest a traditional local drink pairing for ${foodItem.name} from ${city.name}, ${city.country}. Explain why it pairs well in a short sentence (about 20-30 words).', '${outputElementId}')"
+                                                >
+                                                    ✨ 建議搭配飲品
+                                                </button>
+                                                <p id="${outputElementId}" class="text-xs text-orange-800 mt-2 text-left w-full p-2 bg-orange-100 rounded-md">
+                                                    ${cachedOutput ? `<span class="font-semibold">搭配：</span> ${cachedOutput}` : ''}
+                                                </p>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    break;
+                case 'daily':
+                    htmlContent = `
+                        <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-cyan-800 text-center">逐日詳細行程規劃</h2>
+
+                        <!-- Google Maps Embed (Directions View) -->
+                        <div class="relative w-full overflow-hidden rounded-lg shadow-md mb-8" style="padding-top: 56.25%;">
+                            <iframe
+                                title="Iberian Peninsula Travel Route"
+                                src="${googleMapsEmbedUrl}"
+                                width="100%"
+                                height="100%"
+                                class="absolute top-0 left-0 border-0"
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                        <p class="text-center text-sm text-gray-600 mb-6">
+                            * 上方地圖顯示了從巴塞隆納到里斯本，途經所有主要城市 的建議路線。您可以在地圖上拖曳、縮放或點擊「查看大圖」在 Google 地圖中開啟，以查看更詳細的路線資訊和導航。
+                            <br/>
+                            **請注意：** 如果圖片和地圖仍然無法載入，這可能是由於您目前所在的預覽環境對外部資源的安全性限制。在一個正常的網頁伺服器上，這些內容應該能夠正常顯示。
+                        </p>
+
+                        <div class="overflow-x-auto rounded-lg shadow-xl mb-8">
+                            <table class="w-full text-left border-collapse bg-white">
+                                <thead>
+                                    <tr class="bg-emerald-700 text-white">
+                                        <th class="py-3 px-4 border-b border-emerald-600">第幾日</th>
+                                        <th class="py-3 px-4 border-b border-emerald-600">日期</th>
+                                        <th class="py-3 px-4 border-b border-emerald-600">城市/住宿</th>
+                                        <th class="py-3 px-4 border-b border-emerald-600">上午行程</th>
+                                        <th class="py-3 px-4 border-b border-emerald-600">下午行程</th>
+                                        <th class="py-3 px-4 border-b border-emerald-600">晚餐/美食推薦</th>
+                                        <th class="py-3 px-4 border-b border-emerald-600">交通方式</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${appData.dailyItinerary.map(dayPlan => `
+                                        <tr class="border-b border-gray-200 hover:bg-cyan-50 transition-colors duration-200">
+                                            <td class="py-3 px-4 text-sm sm:text-base">${dayPlan.day}</td><td class="py-3 px-4 text-sm sm:text-base">${dayPlan.date}</td><td class="py-3 px-4 text-sm sm:text-base">${dayPlan.city}</td><td class="py-3 px-4 text-sm sm:text-base">${dayPlan.am}</td><td class="py-3 px-4 text-sm sm:text-base">${dayPlan.pm}</td><td class="py-3 px-4 text-sm sm:text-base">${dayPlan.dinner || '無'}</td><td class="py-3 px-4 text-sm sm:text-base">${dayPlan.transport}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                    break;
+                case 'tips':
+                    htmlContent = `
+                        <div class="bg-white p-6 sm:p-8 rounded-lg shadow-xl mb-8">
+                            <!-- 交通指南與預估花費 -->
+                            <div class="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed mb-8">
+                                ${appData.transportationTips}
+                            </div>
+
+                            <!-- 交通費用概覽圖表 -->
+                            <div class="mt-8">
+                                <h3 class="text-xl font-semibold mb-4 text-emerald-700">城市間交通費用概覽 (預估平均)</h3>
+                                <div class="overflow-x-auto">
+                                    <svg
+                                        width="100%"
+                                        height="280"
+                                        viewBox="0 0 ${chartWidth} ${chartHeight + paddingY + 20}"
+                                        class="bg-gray-50 rounded-lg shadow p-4"
+                                        preserveAspectRatio="xMidYMid meet"
+                                    >
+                                        <!-- Y-axis line -->
+                                        <line x1="${xAxisStart}" y1="${paddingY}" x2="${xAxisStart}" y2="${yAxisStart}" stroke="#aaa" stroke-width="1" />
+                                        <!-- X-axis line -->
+                                        <line x1="${xAxisStart}" y1="${yAxisStart}" x2="${chartWidth - paddingX}" y2="${yAxisStart}" stroke="#aaa" stroke-width="1" />
+
+                                        <!-- Y-axis labels and grid lines -->
+                                        ${[0, 0.25, 0.5, 0.75, 1].map(ratio => {
+                                            const yPos = yAxisStart - (chartHeight - paddingY * 2) * ratio;
+                                            const value = Math.round(maxCost * ratio);
+                                            return `
+                                                <g>
+                                                    <line x1="${xAxisStart}" y1="${yPos}" x2="${chartWidth - paddingX}" y2="${yPos}" stroke="#eee" stroke-dasharray="3 3" />
+                                                    <text x="${xAxisStart - 10}" y="${yPos + 4}" text-anchor="end" font-size="12" fill="#555">€${value}</text>
+                                                </g>
+                                            `;
+                                        }).join('')}
+                                        <text x="${xAxisStart - 30}" y="${chartHeight / 2}" text-anchor="middle" transform="rotate(-90 ${xAxisStart - 30} ${chartHeight / 2})" font-size="14" fill="#333">平均費用 (歐元)</text>
+
+                                        <!-- Bars and X-axis numerical labels -->
+                                        ${transportChartData.map((dataPoint, index) => {
+                                            const xPos = xAxisStart + barSpacing + index * (barWidth + barSpacing);
+                                            const barHeight = (dataPoint.avgCost / maxCost) * (chartHeight - paddingY * 2);
+                                            const yPos = yAxisStart - barHeight;
+
+                                            return `
+                                                <g>
+                                                    <rect
+                                                        x="${xPos}"
+                                                        y="${yPos}"
+                                                        width="${barWidth}"
+                                                        height="${barHeight}"
+                                                        fill="#20B2AA"
+                                                        rx="3" ry="3"
+                                                    />
+                                                    <text x="${xPos + barWidth / 2}" y="${yPos - 5}" text-anchor="middle" font-size="12" fill="#333">€${Math.round(dataPoint.avgCost)}</text>
+                                                    <text x="${xPos + barWidth / 2}" y="${yAxisStart + 15}" text-anchor="middle" font-size="10" fill="#555">${index + 1}</text>
+                                                </g>
+                                            `;
+                                        }).join('')}
+                                    </svg>
+                                </div>
+                                <div class="mt-4 text-sm text-gray-700">
+                                    <h4 class="font-semibold text-emerald-700">圖例 (城市間交通路線):</h4>
+                                    <ul class="list-disc list-inside ml-4 grid grid-cols-1 sm:grid-cols-2 gap-1">
+                                        ${transportChartData.map((dataPoint, index) => `
+                                            <li>${index + 1}. ${dataPoint.route} (平均)</li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 旅行小貼士 -->
+                            <div class="prose prose-sm sm:prose-base max-w-none text-gray-700 leading-relaxed mt-8">
+                                ${appData.travelTips}
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            mainContentDiv.innerHTML = htmlContent;
+        }
+
+        // 頁面載入完成後執行
+        document.addEventListener('DOMContentLoaded', () => {
+            // 綁定導航按鈕事件
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const tabId = event.target.id;
+                    const tabName = tabId.replace('tab-', '');
+                    renderTabContent(tabName);
+                });
+            });
+
+            // 首次載入時渲染預設頁面
+            renderTabContent(currentActiveTab);
+        });
+
+        // Tailwind CSS 配置 (在頁面載入後重新配置以確保生效)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+</body>
+</html>
